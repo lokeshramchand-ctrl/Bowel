@@ -1,17 +1,22 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const crypto = require('crypto');
-
-const app = express();
-app.use(express.json());
 const cors = require('cors');
 
-app.use(cors({
+const app = express();
+
+const corsOptions = {
   origin: '*',
   methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'x-device-id'],
-}));
-app.options('/{*path}', cors(corsOptions));// ===== LOGGER =====
+};
+
+app.use(cors(corsOptions));
+app.options('/{*path}', cors(corsOptions));
+
+app.use(express.json());
+
+
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
   next();
