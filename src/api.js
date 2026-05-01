@@ -4,7 +4,14 @@ const crypto = require('crypto');
 
 const app = express();
 app.use(express.json());
+const cors = require('cors');
 
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'x-device-id'],
+}));
+app.options('*', cors());
 // ===== LOGGER =====
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
