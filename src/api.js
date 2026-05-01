@@ -11,8 +11,7 @@ app.use(cors({
   methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'x-device-id'],
 }));
-app.options('*', cors());
-// ===== LOGGER =====
+app.options('/{*path}', cors(corsOptions));// ===== LOGGER =====
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
   next();
